@@ -2,8 +2,6 @@ openapi: 3.0.3
 info:
   version: 'latest'
   title: Projet_eo API
-servers:
-  - url:
 security:
   - BearerAuth: [ ]
 

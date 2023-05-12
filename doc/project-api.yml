@@ -1,0 +1,133 @@
+operations:
+  getProjectById:
+    get:
+      tags:
+        - Project
+      summary: Get information of a project
+      operationId: getProjectById
+      parameters:
+        - in: path
+          name: aId
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Information of the project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectFile'
+        400:
+          $ref: './api.yml#/components/responses/400'
+        403:
+          $ref: './api.yml#/components/responses/403'
+        404:
+          $ref: './api.yml#/components/responses/404'
+        429:
+          $ref: './api.yml#/components/responses/429'
+        500:
+          $ref: './api.yml#/components/responses/500'
+  Project:
+    get:
+      tags:
+        - Projects
+      summary: get a list of project
+      operationId: getProjects
+      parameters:
+        - in: path
+          name: nameLike
+          schema:
+              type: string
+          required: false
+        - in: path
+          name: uploadedAt
+          schema:
+            type: string
+        - in: path
+          name: author
+          schema:
+            type: string
+        - in: path
+          name: associated
+          schema:
+            type: string
+        - in: path
+          name: issue
+          schema:
+            type: string
+        - in: path
+          name: tag
+          schema:
+            type: string
+      responses:
+        200:
+          description: The project
+          content:
+            $ref: '#/components/schemas/ProjectFile'
+        400:
+          $ref: './api.yml#/components/responses/400'
+        403:
+          $ref: './api.yml#/components/responses/403'
+        404:
+          $ref: './api.yml#/components/responses/404'
+        429:
+          $ref: './api.yml#/components/responses/429'
+        500:
+          $ref: './api.yml#/components/responses/500'
+    put:
+      tags:
+        - Projects
+      summary: Upload a Projects. Fails if project already exists.
+      operationId: uploadProject
+      parameters:
+        - in: path
+          name: aId
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: fileType
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+         type: object
+         content:
+            $ref: '#/components/schemas/ProjectFile'
+      responses:
+        200:
+          description: The crupdated project
+          content:
+            $ref: '#/components/schemas/ProjectFile'
+        400:
+          $ref: './api.yml#/components/responses/400'
+        403:
+          $ref: './api.yml#/components/responses/403'
+        404:
+          $ref: './api.yml#/components/responses/404'
+        429:
+          $ref: './api.yml#/components/responses/429'
+        500:
+          $ref: './api.yml#/components/responses/500'
+components:
+  schemas:
+    ProjectFile:
+      type: object
+      properties:
+        id:
+          type: string
+        uploadedAt:
+          type: string
+          format: date-time
+        link:
+          type: string
+        uploadedByAccountId:
+          type: string
+          example: "uuid"

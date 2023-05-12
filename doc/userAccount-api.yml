@@ -1,0 +1,174 @@
+operations:
+  getUserById:
+    get:
+      tags:
+        - User Account
+      summary: Get a user By provided Id
+      operationId: getUserById
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: The user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          $ref: './api.yml#/components/responses/400'
+        403:
+          $ref: './api.yml#/components/responses/403'
+        404:
+          $ref: './api.yml#/components/responses/404'
+        429:
+          $ref: './api.yml#/components/responses/429'
+        500:
+          $ref: './api.yml#/components/responses/500'
+  getActivities:
+    get:
+      summary: Get all activities of users.
+      tags:
+        - User Account
+      operationId: getUserActivities
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: page
+          schema:
+            $ref: './api.yml#/components/schemas/Page'
+        - in: query
+          name: pageSize
+          schema:
+            $ref: './api.yml#/components/schemas/PageSize'
+      responses:
+        200:
+          description: List of all activities
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BusinessActivity'
+        400:
+          $ref: './api.yml#/components/responses/400'
+        403:
+          $ref: './api.yml#/components/responses/403'
+        404:
+          $ref: './api.yml#/components/responses/404'
+        429:
+          $ref: './api.yml#/components/responses/429'
+        500:
+          $ref: './api.yml#/components/responses/500'
+  updateActivities:
+    put:
+      tags:
+        - User Account
+      summary: Update activities of an account
+      operationId: updateActivities
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompanyBusinessActivity'
+      responses:
+        200:
+          description: The account with information updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountHolder'
+        400:
+          $ref: './api.yml#/components/responses/400'
+        403:
+          $ref: './api.yml#/components/responses/403'
+        404:
+          $ref: './api.yml#/components/responses/404'
+        429:
+          $ref: './api.yml#/components/responses/429'
+        500:
+          $ref: './api.yml#/components/responses/500'
+components:
+  schemas:
+    ProjectFile:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        fileUrl:
+          type: string
+    User:
+      properties:
+        id:
+          type: string
+          example: 'uuid'
+        firstName:
+          type: string
+          example: 'John'
+        lastName:
+          type: string
+          example: 'Doe'
+        idVerified:
+          type: boolean
+        projectFile:
+          type: object
+          properties:
+            $ref: '#/components/schemas/ProjectFile'
+        email:
+          type: string
+          example: "JohnDoe@example.com"
+        status:
+          $ref: '#/components/schemas/EnableStatus'
+    EnableStatus:
+      type: string
+      enum:
+        - ENABLED
+        - DISABLED
+    Account:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        status:
+          $ref: '#/components/schemas/AccountStatus'
+    AccountStatus:
+      type: string
+      enum:
+        - OPENED
+        - CLOSED
+        - CLOSING
+        - SUSPENDED
+    ProjectUpdate:
+      allOf:
+        - $ref: '#/components/schemas/ProjectFile'
+      properties:
+        updatedAt:
+          type: string
+          format: date-time
+    VerificationStatus:
+      type: string
+      enum:
+        - VERIFIED
+        - NOT_STARTED
+        - PENDING
+    ContactAddress:
+      type: object
+      properties:
+        city:
+          type: string
