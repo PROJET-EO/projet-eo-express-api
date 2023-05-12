@@ -1,0 +1,18 @@
+openapi: 3.0.3
+info:
+  version: 'latest'
+  title: Projet_eo API
+servers:
+  - url:
+security:
+  - BearerAuth: [ ]
+
+paths:
+  /ping:
+    $ref: './security-api.yml#/operations/ping'
+  /authInitiation:
+    $ref: './security-api.yml#/operations/initiateAuth'
+  /token:
+    $ref: './security-api.yml#/operations/createToken'
+  /whoami:
+    $ref: './security-api.yml#/operations/whoami'
