@@ -1,11 +1,5 @@
-import { Router } from "express";
-
-const getHealth = Router();
-
-getHealth.get("/",function(req,res){
-    res.send('Hello world');
-    console.log("jolll");
-    
-})
-
-module.exports = getHealth;
+import { Express, Request, Response } from "express";
+const routes=(app : Express)=>{
+    app.get('/health',(req : Request,res:Response)=> res.sendStatus(200))
+}
+export default routes;
