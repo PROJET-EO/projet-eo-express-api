@@ -112,10 +112,6 @@ components:
       properties:
         accessToken:
           type: string
-        refreshToken:
-          type: string
-        expiresIn:
-          type: integer
         whoami:
           $ref: '#/components/schemas/Whoami'
     Whoami:

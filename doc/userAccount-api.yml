@@ -55,8 +55,7 @@ operations:
             application/json:
               schema:
                 type: array
-                items:
-                  $ref: '#/components/schemas/BusinessActivity'
+                $ref : './userAccount-api.yml/'
         400:
           $ref: './api.yml#/components/responses/400'
         403:
@@ -83,14 +82,14 @@ operations:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CompanyBusinessActivity'
+            
       responses:
         200:
           description: The account with information updated
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AccountHolder'
+               
         400:
           $ref: './api.yml#/components/responses/400'
         403:
@@ -152,7 +151,6 @@ components:
       enum:
         - OPENED
         - CLOSED
-        - CLOSING
         - SUSPENDED
     ProjectUpdate:
       allOf:
@@ -161,12 +159,6 @@ components:
         updatedAt:
           type: string
           format: date-time
-    VerificationStatus:
-      type: string
-      enum:
-        - VERIFIED
-        - NOT_STARTED
-        - PENDING
     ContactAddress:
       type: object
       properties:
