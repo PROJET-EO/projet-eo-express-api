@@ -1,3 +1,9 @@
+###################################################
+# get all Project                                 #
+# update all spec to be correspand to CRUD user   #
+# update user activities
+#Even if By id/Query or all proeject             # 
+###################################################
 operations:
   getUserById:
     get:

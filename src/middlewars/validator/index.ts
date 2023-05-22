@@ -9,7 +9,7 @@ const validate = (schema :AnyZodObject)=>(req : Request,res:Response,next:NextFu
             })
             next()
         } catch (e : any) {
-            return res.status(400).send(e.errors)
+            return res.status(400).send(e.message)
         }
 }
 export default validate;
