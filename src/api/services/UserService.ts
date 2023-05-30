@@ -18,11 +18,16 @@ const getUserByEmail = async (email: string) => {
   });
   return user;
 };
+const getAllUser =async () => {
+  const userAll = await User.find()
+  return userAll;
+}
 
 const userService = {
   createNewUser,
   getUserById,
   getUserByEmail,
+  getAllUser
 };
 
 export default userService;
