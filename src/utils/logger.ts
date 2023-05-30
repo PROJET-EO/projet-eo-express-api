@@ -1,1 +1,0 @@
-// TODO : implemement a cutsom logger to have more visible for info or error
