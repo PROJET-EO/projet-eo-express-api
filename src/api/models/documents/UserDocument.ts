@@ -1,3 +1,6 @@
+import { IProjectDTO } from "../dtos/project/IProjectDTO";
+import { ProjectDocument } from "./ProjectDocument";
+
 export interface UserDocument {
   id: string;
   firstName: string;
@@ -5,6 +8,8 @@ export interface UserDocument {
   email: string;
   password: string;
   birthdate: Date;
+  project?: ProjectDocument[];
+  friendRelation ?: UserDocument[];
 }
 
 export interface UserMethods {

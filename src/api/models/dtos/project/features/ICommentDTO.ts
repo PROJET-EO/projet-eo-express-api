@@ -1,4 +1,4 @@
-import { User } from "../../user/IProjectUserDTO";
+import { User } from "../../user/IUpdateUserDTO";
 import { React } from "./utils/interact";
 
 export interface ICommentDTO {

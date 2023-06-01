@@ -1,4 +1,3 @@
-import { User } from "../user/IProjectUserDTO";
 import { ICommentDTO } from "./features/ICommentDTO";
 
 export interface IProjectDTO{
