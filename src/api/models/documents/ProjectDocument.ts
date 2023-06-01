@@ -1,4 +1,6 @@
+import { CommentDocument } from "./CommentDocument";
 import { UserDocument } from "./UserDocument";
+import { React } from "./utils/interact";
 
 export interface ProjectDocument {
     id : string;
@@ -7,5 +9,6 @@ export interface ProjectDocument {
     url: string;
     tag : string;
     contributors: UserDocument[];
-    reactor: string
+    comment : CommentDocument[];
+    reactor: React[]
 }

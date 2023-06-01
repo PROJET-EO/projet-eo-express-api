@@ -1,4 +1,4 @@
-import { IProjectDTO } from "../dtos/project/IProjectDTO";
+import { IProjectDTO } from "../dtos/project/IUpdateProjectDTO";
 import { ProjectDocument } from "./ProjectDocument";
 
 export interface UserDocument {

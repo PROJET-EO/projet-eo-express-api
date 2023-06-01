@@ -1,8 +1,8 @@
-import { IProjectDTO } from "../project/IProjectDTO";
+import { IProjectDTO } from "../project/IUpdateProjectDTO";
 
 export interface IUpdateUserDTO {
     id : string;
-    name ?: string;
+    Firstame ?: string;
     email ?: string;
     password ?:string;
     project?: IProjectDTO[];
