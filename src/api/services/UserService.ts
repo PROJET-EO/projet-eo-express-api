@@ -1,6 +1,7 @@
 import { ICreateUserDTO } from "../models/dtos/user/ICreateUserDTO";
-import mongoose from "mongoose";
+import mongoose, { FilterQuery } from "mongoose";
 import { User } from "../models/schemas/UserSchema";
+import { UserDocument } from "../models";
 
 const createNewUser = async (user: ICreateUserDTO) => {
   const newUser = await User.create(user);
@@ -18,8 +19,12 @@ const getUserByEmail = async (email: string) => {
   });
   return user;
 };
-const getAllUser =async () => {
-  const userAll = await User.find()
+
+const getAllUser =async (query ?: FilterQuery<UserDocument>,options = {lean: true}) => {
+  const userAll = await User.find({
+    query,
+    options
+  })
   return userAll;
 }
 

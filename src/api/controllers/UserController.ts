@@ -1,8 +1,9 @@
 import { Response } from "express";
 
 import userService from "../services/UserService";
+import { ExtendedRequest } from "../models/util/IExtendedRequest";
 
-const getAllUser = async (req:Request, res: Response) => {
+const getAllUser = async (req:ExtendedRequest, res: Response) => {
     try {
       const AllUser = await userService.getAllUser();
       return res.json({ error: null, data: AllUser });
@@ -12,6 +13,6 @@ const getAllUser = async (req:Request, res: Response) => {
   };
 
   const userController ={
-    getAllUser
+    getAllUser 
   }
   export default userController;

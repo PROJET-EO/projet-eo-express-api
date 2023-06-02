@@ -2,6 +2,7 @@ import authService from "../services/AuthService";
 import tokenService from "../services/TokenService";
 import { Response } from "express";
 import { ExtendedRequest } from "../models/util/IExtendedRequest";
+import userService from "../services/UserService";
 
 const register = async (req: ExtendedRequest, res: Response) => {
   try {
@@ -33,10 +34,19 @@ const login = async (req: ExtendedRequest, res: Response) => {
     return res.status(400).json(error);
   }
 };
+const getAllUser = async (req:Request, res: Response) => {
+  try {
+    const AllUser = await userService.getAllUser();
+    return res.json({ error: null, data: AllUser });
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+};
 
 const authController = {
   register,
   login,
+  getAllUser
 };
 
 export default authController;
