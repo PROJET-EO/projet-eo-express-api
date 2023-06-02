@@ -19,6 +19,10 @@ const getUserByEmail = async (email: string) => {
   });
   return user;
 };
+const UpdateUser =async (user : ICreateUserDTO) => {
+  const userToUpdate = await User.updateOne({user})
+  return userToUpdate;
+}
 
 const getAllUser =async (query ?: FilterQuery<UserDocument>,options = {lean: true}) => {
   const userAll = await User.find({
@@ -32,7 +36,8 @@ const userService = {
   createNewUser,
   getUserById,
   getUserByEmail,
-  getAllUser
+  getAllUser,
+  UpdateUser
 };
 
 export default userService;
