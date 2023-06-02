@@ -24,11 +24,8 @@ const UpdateUser =async (user : ICreateUserDTO) => {
   return userToUpdate;
 }
 
-const getAllUser =async (query ?: FilterQuery<UserDocument>,options = {lean: true}) => {
-  const userAll = await User.find({
-    query,
-    options
-  })
+const getAllUser =async () => {
+  const userAll = await User.find()
   return userAll;
 }
 
