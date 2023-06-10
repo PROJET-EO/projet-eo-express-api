@@ -24,8 +24,20 @@ const UpdateUser =async (user : ICreateUserDTO) => {
   return userToUpdate;
 }
 
-const getAllUser =async () => {
-  const userAll = await User.find()
+const getAllUser =async (req : any) => {
+  var filteredQuery : FilterQuery<UserDocument> = {},
+  acceptableFields = ['firstName', 'lastName', 'email'];
+ 
+  acceptableFields.forEach(function(field) {
+    if (req.query[field]) {
+      filteredQuery[field] = req.query[field];
+    }
+  });
+  if(req){
+    const queryiedUser = await User.find(filteredQuery);
+    return queryiedUser
+  } 
+    const userAll = await User.find();
   return userAll;
 }
 const removeUser =async (id : string) => {
