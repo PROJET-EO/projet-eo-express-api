@@ -25,14 +25,13 @@ const UpdateUser =async (user : ICreateUserDTO) => {
 }
 
 const getAllUser =async (req : any) => {
-  var filteredQuery : FilterQuery<UserDocument> = {},
-  acceptableFields = ['firstName', 'lastName', 'email'];
- 
-  acceptableFields.forEach(function(field) {
-    if (req.query[field]) {
-      filteredQuery[field] = req.query[field];
+  const filteredQuery = {
+    metadata: {
+      $elemMatch: {
+        $and: Object.entries(req).map(([key, value]) => ({ [key]: value }))
+      }
     }
-  });
+  };
   if(req){
     const queryiedUser = await User.find(filteredQuery);
     return queryiedUser

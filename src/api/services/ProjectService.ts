@@ -24,14 +24,14 @@ const UpdateProject =async (ProjectDomain : ICreateProjectDTO) => {
   return ProjectToUpdate;
 }
 
-const getAllProject =async (req : any) => {
-  var filteredQuery : FilterQuery<ProjectDocument> = {},
-  acceptableFields = ['tag', ' name', 'description','tag','contributors','comment']; 
-  acceptableFields.forEach(function(field) {
-    if (req.query[field]) {
-      filteredQuery[field] = req.query[field];
-    }
-  });
+const getAllProjectQueried =async (req : any = {}) => {
+    const filteredQuery = {
+        metadata: {
+          $elemMatch: {
+            $and: Object.entries(req).map(([key, value]) => ({ [key]: value }))
+          }
+        }
+      };
   if(req){
     const queryiedProject = await Project.find(filteredQuery);
     return queryiedProject
@@ -39,6 +39,10 @@ const getAllProject =async (req : any) => {
     const ProjectAll = await Project.find();
   return ProjectAll;
 }
+const getAllProject =async () => {
+    const ProjectAll = await Project.find();
+    return ProjectAll;
+  }
 const removeProject =async (id : string) => {
      await Project.findByIdAndDelete(id);
   
@@ -48,9 +52,10 @@ const ProjectService = {
   createNewProject,
   getProjectById,
   getProjectByQuery,
-  getAllProject,
+  getAllProjectQueried,
   UpdateProject,
-  removeProject
+  removeProject,
+  getAllProject
 };
 
 export default ProjectService;

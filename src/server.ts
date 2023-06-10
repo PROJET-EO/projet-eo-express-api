@@ -5,6 +5,7 @@ import yaml from "yamljs";
 import bodyParser from "body-parser";
 import authRoutes from "./api/routes/AuthRoutes";
 import userRoutes from "./api/routes/UserRoutes"
+import projectRoutes  from './api/routes/ProjectRoutes'
 const swaggerDefinition = yaml.load("./src/config/api.yml");
 const swaggerUi = require("swagger-ui-express");
 
@@ -18,6 +19,7 @@ app.use(bodyParser.json());
 
 app.use("/api/user", authRoutes);
 app.use("/api",userRoutes)
+app.use("/api",projectRoutes)
 
 mongoose
   .connect(process.env.DBHOST!)

@@ -1,7 +1,7 @@
 export interface ICreateProjectDTO{
-    id: string;
     name: string;
-    owner: string;
+    owner?: string;
     url : string;
+    tag ?: string
     description : string
 }
