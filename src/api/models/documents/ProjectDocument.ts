@@ -8,6 +8,7 @@ export interface ProjectDocument {
     description: string;
     url: string;
     tag : string;
+    owner : UserDocument;
     contributors: UserDocument[];
     comment : CommentDocument[];
     reactor: React[]

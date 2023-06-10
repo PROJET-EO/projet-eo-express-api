@@ -6,6 +6,6 @@ export interface CommentDocument {
     id : string;
     owner : UserDocument;
     content : string;
-    Reactor : Omit<UserDocument,React>[];
+    reactor : Omit<UserDocument,React>[];
     respond : Comment[]
 }
