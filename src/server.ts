@@ -17,7 +17,7 @@ app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
 app.use(bodyParser.json());
 
 app.use("/api/user", authRoutes);
-app.use("/api/",userRoutes)
+app.use("/api",userRoutes)
 
 mongoose
   .connect(process.env.DBHOST!)

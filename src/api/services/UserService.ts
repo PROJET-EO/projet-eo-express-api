@@ -8,7 +8,7 @@ const createNewUser = async (user: ICreateUserDTO) => {
   return newUser;
 };
 
-const getUserById = async (id: mongoose.Types.ObjectId) => {
+const getUserById = async (id: mongoose.Types.ObjectId | string) => {
   const user = await User.findById(id);
   return user;
 };
@@ -28,13 +28,18 @@ const getAllUser =async () => {
   const userAll = await User.find()
   return userAll;
 }
+const removeUser =async (id : string) => {
+     await User.findByIdAndDelete(id);
+  
+}
 
 const userService = {
   createNewUser,
   getUserById,
   getUserByEmail,
   getAllUser,
-  UpdateUser
+  UpdateUser,
+  removeUser
 };
 
 export default userService;

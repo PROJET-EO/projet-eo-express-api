@@ -6,7 +6,8 @@ const router = express.Router();
 router.route('/users').get(userController.getAllUser);
 
 // route: /api/user/create for creating new user
-router.route('/user/update').put(userController.UpdateUser)
+router.route('/user/update/:id').put(userController.UpdateUser)
+router.route('/user/:id').delete(userController.removeUser)
 
 
 export = router;
