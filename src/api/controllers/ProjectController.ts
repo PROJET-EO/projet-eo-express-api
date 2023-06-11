@@ -2,8 +2,12 @@ import { NextFunction, Response } from "express";
 
 import ProjectService from "../services/ProjectService";
 import { ExtendedRequest } from "../models/util/IExtendedRequest";
-import { ICreateProjectDTO, ProjectDocument } from "../models";
+import { ICreateProjectDTO, ProjectDocument, UserDocument } from "../models";
 import { isEmpty } from "lodash";
+import userService from "../services/UserService";
+import ErrorResponse from "../utils/errorResponse";
+import { projectValidation } from "../validations/ProjectValidation";
+import { userMapper } from "./mapper/UserMapper";
 
 const getAllProject = async (req:ExtendedRequest, res: Response,next : NextFunction) => {
   const filter = req.body
@@ -47,6 +51,7 @@ const UpdateProject =async (req: ExtendedRequest,res : Response) => {
       if(ProjectTry){
         const newProjectData : ICreateProjectDTO = {
           name : name ?? ProjectTry.name,
+          owner : owner ?? ProjectTry.owner,
           description : description ?? ProjectTry.description,
           tag : tag ?? ProjectTry.description,
           url : url ?? ProjectTry.url
@@ -70,10 +75,33 @@ const removeProject =async (req:ExtendedRequest,res: Response) => {
     
   }
 }
+
+const createProject =async (req:ExtendedRequest,res: Response) => {
+  const {name,url,description,tag,owner} = req.body;
+  projectValidation(req.body)
+  try {
+    const ownerUser = userService.getUserByName(owner);
+    const user =await userMapper(ownerUser)
+    const newProjectData : ICreateProjectDTO = {
+        name : name,
+        url : url,
+        owner: user,
+        description: description,
+        tag : tag
+    }
+      await ProjectService.createNewProject(newProjectData)
+      return res.status(202).json({ data : {
+        newProjectData
+      }})
+  } catch (error) {
+    throw new ErrorResponse("error occuered on creating project",500)
+  }
+}
   const ProjectController ={
     getAllProject ,
     UpdateProject,
     removeProject,
-    getProjectById
+    getProjectById,
+    createProject
   }
   export default ProjectController;

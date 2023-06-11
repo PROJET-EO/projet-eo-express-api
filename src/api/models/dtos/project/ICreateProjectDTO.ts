@@ -1,7 +1,10 @@
+import { UserDocument } from "../../documents";
+
 export interface ICreateProjectDTO{
     name: string;
-    owner?: string;
+    owner: UserDocument;
     url : string;
     tag ?: string
-    description : string
+    description? : string;
+    createdAt ?: string
 }

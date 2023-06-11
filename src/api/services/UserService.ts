@@ -2,6 +2,7 @@ import { ICreateUserDTO } from "../models/dtos/user/ICreateUserDTO";
 import mongoose, { FilterQuery } from "mongoose";
 import { User } from "../models/schemas/UserSchema";
 import { UserDocument } from "../models";
+import ErrorResponse from "../utils/errorResponse";
 
 const createNewUser = async (user: ICreateUserDTO) => {
   const newUser = await User.create(user);
@@ -18,6 +19,17 @@ const getUserByEmail = async (email: string) => {
     email: email,
   });
   return user;
+};
+const getUserByName = async (name: string) => {
+ 
+  try {
+    const user = await User.findOne(  {
+      firstName : name
+    });
+    return user;
+  } catch (error) {
+    throw new ErrorResponse("User not found",404)
+  }
 };
 const UpdateUser =async (user : ICreateUserDTO) => {
   const userToUpdate = await User.updateOne({user})
@@ -50,7 +62,8 @@ const userService = {
   getUserByEmail,
   getAllUser,
   UpdateUser,
-  removeUser
+  removeUser,
+  getUserByName
 };
 
 export default userService;

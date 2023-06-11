@@ -7,9 +7,10 @@ const router = express.Router();
 router.route('/users').get(userController.getAllUser);
 
 // route: /api/user/create for creating new user
-router.route('/user/update/:id').put(verifyToken,userController.UpdateUser)
-router.route('/user/:id').delete(verifyToken,userController.removeUser)
-router.route('/user/:id').get(verifyToken,userController.getUserById)
+router.route('/user/update/:id').put(userController.UpdateUser)
+router.route('/user/:id').delete(userController.removeUser)
+router.route('/user/:id').get(userController.getUserById)
+router.route('/user').get(userController.getUserByName)
 
 
 export = router;
