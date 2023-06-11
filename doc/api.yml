@@ -307,7 +307,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Activities'
-            
       responses:
         200:
           description: The account with information updated
@@ -315,7 +314,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Activities'
-               
         400:
           $ref: '#/components/responses/400'
         403:
@@ -326,13 +324,11 @@ paths:
           $ref: '#/components/responses/429'
         500:
           $ref: '#/components/responses/500'
-
 components:
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
-
   responses:
     '400':
       description: Bad request
@@ -364,7 +360,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/InternalServerException'
-
   schemas:
     ProjectFile:
       type: object
@@ -381,7 +376,6 @@ components:
         uploadedByAccountId:
           type: string
           example: "uuid"
-
     AuthInitiation:
       type: object
       properties:
@@ -406,7 +400,6 @@ components:
       properties:
         user:
           $ref:  '#/components/schemas/User'
-          
     UserIdentifier:
       type: object
       properties:
