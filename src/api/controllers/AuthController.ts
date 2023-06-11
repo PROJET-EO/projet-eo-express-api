@@ -28,7 +28,7 @@ const login = async (req: ExtendedRequest, res: Response) => {
 
     return res.header("auth-token", token).json({
       error: null,
-      data: { token },
+      data: { loggedInUser, token },
     });
   } catch (error) {
     return res.status(400).json(error);

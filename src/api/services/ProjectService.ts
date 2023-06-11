@@ -2,6 +2,7 @@ import mongoose, { FilterQuery } from "mongoose";
 import { Project } from "../models/schemas/ProjectSchema";
 import { ProjectDocument, UserDocument } from "../models";
 import { ICreateProjectDTO } from "../models/dtos/project/ICreateProjectDTO";
+import { descriptionSetter } from "./utils/description";
 
 const createNewProject = async (ProjectDomain: ICreateProjectDTO) => {
   const newProject = await Project.create(ProjectDomain);
@@ -10,13 +11,17 @@ const createNewProject = async (ProjectDomain: ICreateProjectDTO) => {
 
 const getProjectById = async (id: mongoose.Types.ObjectId | string) => {
   const ProjectFinded = await Project.findById(id)
+    descriptionSetter(ProjectFinded!)
   return ProjectFinded;
 };
 
 const getProjectByQuery = async (query: UserDocument) => {
+
   const ProjectWithQuery = await Project.findOne({
     query
   });
+  
+  descriptionSetter(ProjectWithQuery!)
   return ProjectWithQuery;
 };
 const UpdateProject =async (ProjectDomain : ICreateProjectDTO) => {
@@ -37,10 +42,12 @@ const getAllProjectQueried =async (req : any = {}) => {
     return queryiedProject
   } 
     const ProjectAll = await Project.find();
+    ProjectAll.forEach((e)=>descriptionSetter(e!))
   return ProjectAll;
 }
 const getAllProject =async () => {
     const ProjectAll = await Project.find();
+    ProjectAll.forEach((e)=>descriptionSetter(e!))
     return ProjectAll;
   }
 const removeProject =async (id : string) => {
