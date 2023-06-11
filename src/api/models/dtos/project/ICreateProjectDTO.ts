@@ -1,9 +1,8 @@
-import { RestUser } from "../../../controllers/mapper/UserMapper";
 import { UserDocument } from "../../documents";
 
 export interface ICreateProjectDTO {
   name: string;
-  owner: RestUser;
+  owner: UserDocument;
   url: string;
   tag?: string;
   description?: string;

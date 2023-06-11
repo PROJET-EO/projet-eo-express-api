@@ -8,6 +8,7 @@ import userService from "../services/UserService";
 import ErrorResponse from "../utils/errorResponse";
 import { projectValidation } from "../validations/ProjectValidation";
 import { userMapper } from "./mapper/UserMapper";
+import { projectToDomain } from "./mapper/ProjectMapper";
 
 const getAllProject = async (
   req: ExtendedRequest,
@@ -94,9 +95,7 @@ const createProject = async (req: ExtendedRequest, res: Response) => {
     };
     const data = await ProjectService.createNewProject(newProjectData);
     return res.status(201).json({
-      data: {
-        newProjectData,
-      },
+      data,
     });
   } catch (error) {
     throw new ErrorResponse("error occuered on creating project", 500);
