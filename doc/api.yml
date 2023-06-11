@@ -306,6 +306,7 @@ paths:
         content:
           application/json:
             schema:
+              $ref: '#/components/schemas/Activities'
             
       responses:
         200:
@@ -313,6 +314,7 @@ paths:
           content:
             application/json:
               schema:
+                $ref: '#/components/schemas/Activities'
                
         400:
           $ref: '#/components/responses/400'
@@ -456,9 +458,7 @@ components:
         idVerified:
           type: boolean
         projectFile1:
-          type: object
-          properties:
-            $ref: '#/components/schemas/ProjectFile1'
+          $ref: '#/components/schemas/ProjectFile1/properties'
         email:
           type: string
           example: "JohnDoe@example.com"
@@ -508,8 +508,10 @@ components:
         - DESC
     Activities:
       properties:
-        
-          
+        User:
+          $ref: '#/components/schemas/User'
+        Action:
+          $ref: '#/components/schemas/ProjectFile'
     Exception:
       type: object
       properties:
