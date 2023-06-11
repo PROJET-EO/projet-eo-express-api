@@ -5,6 +5,7 @@ import { ICreateProjectDTO } from "../models/dtos/project/ICreateProjectDTO";
 import { descriptionSetter } from "./utils/description";
 
 const createNewProject = async (ProjectDomain: ICreateProjectDTO) => {
+  ProjectDomain.createdAt = new Date().toString()
   const newProject = await Project.create(ProjectDomain);
   return newProject;
 };
@@ -25,6 +26,7 @@ const getProjectByQuery = async (query: UserDocument) => {
   return ProjectWithQuery;
 };
 const UpdateProject =async (ProjectDomain : ICreateProjectDTO) => {
+  ProjectDomain.createdAt = new Date().toString()
   const ProjectToUpdate = await Project.updateOne({ProjectDomain})
   return ProjectToUpdate;
 }

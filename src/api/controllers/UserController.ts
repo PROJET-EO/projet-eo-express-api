@@ -30,6 +30,20 @@ const getAllUser = async (req:ExtendedRequest, res: Response,next : NextFunction
    
   };
 
+  const getUserByName = async (req:ExtendedRequest, res: Response,next : NextFunction) => {
+    const {name} = req.query
+  try {
+    if(name){
+      const userFound = await userService.getUserByName(name.toString());
+    return res.json({ error: null, data: userFound });
+    }
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+ 
+};
+  
+
 
 const UpdateUser =async (req: ExtendedRequest,res : Response) => {
   const {firstName,LastName,email,password,birthdate}= req.body;
@@ -67,6 +81,7 @@ const removeUser =async (req:ExtendedRequest,res: Response) => {
     getAllUser ,
     UpdateUser,
     removeUser,
-    getUserById
+    getUserById,
+    getUserByName
   }
   export default userController;
