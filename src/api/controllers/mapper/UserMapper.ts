@@ -1,5 +1,12 @@
 import { UserDocument } from "../../models";
 
+
+export interface RestUser {
+    firstName : string,
+    lastName : string,
+    email :string
+}
+
 export const userMapper= async (user : Promise<UserDocument | null> ) => {
     const userMapped : UserDocument = {
         id :'',
@@ -21,4 +28,16 @@ export const userMapper= async (user : Promise<UserDocument | null> ) => {
      
     })
     return userMapped;
+
+}
+
+export const userDomain = (user : UserDocument) =>{
+    const userDomain : RestUser  = {
+            firstName : user.firstName,
+            lastName : user.lastName,
+            email : user.email
+        }
+
+        return userDomain;
+
 }
