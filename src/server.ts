@@ -7,15 +7,16 @@ import authRoutes from "./api/routes/AuthRoutes";
 import userRoutes from "./api/routes/UserRoutes"
 import projectRoutes  from './api/routes/ProjectRoutes'
 import commentRoutes from './api/routes/CommentRoutes'
+import cors from "cors"
 const swaggerDefinition = yaml.load("./src/config/api.yml");
 const swaggerUi = require("swagger-ui-express");
 
 
 const app: express.Application = express();
 
+app.use(cors())
 app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
 app.use(bodyParser.json());
-
 app.use("/api/user", authRoutes);
 app.use("/api",userRoutes)
 app.use("/api",projectRoutes)
