@@ -36,14 +36,6 @@ const UpdateUser = async (user: ICreateUserDTO) => {
 };
 
 const getAllUserQueried = async (req: any) => {
-  const filteredQuery = {
-    metadata: {
-      $elemMatch: {
-        $and: Object.entries(req).map(([key, value]) => ({ [key]: value })),
-      },
-    },
-  };
-
   const queryiedUser = await User.find(req);
   return queryiedUser;
 };
