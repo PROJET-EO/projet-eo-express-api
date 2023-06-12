@@ -13,5 +13,5 @@ export interface ProjectDocument {
   contributors: UserDocument[];
   comment: CommentDocument[];
   reactor: React[];
-  createdAt: string;
+  createdAt: Date;
 }
