@@ -10,7 +10,7 @@ export const verifyToken = (
   next: NextFunction
 ) => {
   const {headers}= req
-  const token = headers.authorization ;
+  const token = headers.authorization?.split(' ')[1] ;
   if (!token) return res.status(401).json({ error: "Access Denied" });
 
   try {
