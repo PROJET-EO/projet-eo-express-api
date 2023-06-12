@@ -1,31 +1,29 @@
-const jwt = require("jsonwebtoken");
 import { NextFunction, Response } from "express";
 import { ExtendedRequest } from "../models/util/IExtendedRequest";
 import { verifyTokenFromUser } from "../utils/jwt";
-import ErrorResponse from "../utils/errorResponse";
+import userService from "../services/UserService";
 
-export const verifyToken = (
+export const verifyToken = async (
   req: ExtendedRequest,
   res: Response,
   next: NextFunction
 ) => {
   const {headers}= req
-  const token = headers.authorization ;
+  if (!headers.authorization) return res.status(401).json({ error: "Access Denied" });
+  const token = headers.authorization.split(" ")[1]
   if (!token) return res.status(401).json({ error: "Access Denied" });
 
+  
   try {
-    const verified =verifyTokenFromUser(token)
+    const verified = await verifyTokenFromUser(token)
     if(!verified){
-     res.status(401).json({ error: "no token" })
+      res.status(401).json({ error: "no token" })
     }
+
+    const user = await userService.getUserById(verified.id)
+    req.loggedUsed = user as any;
     next();
   } catch (error) {
     res.status(400).json({ error: "Token is not valid" });
   }
 };
-
-
-export const getUserFromToken = async (token: string) => {
-  const user = await jwt.verify(token, process.env.TOKEN_SECRET);
-  return user.id;
-}
