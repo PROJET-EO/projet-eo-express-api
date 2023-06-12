@@ -2,8 +2,7 @@ import { NextFunction, Response } from "express";
 
 import userService from "../services/UserService";
 import { ExtendedRequest } from "../models/util/IExtendedRequest";
-import { ICreateUserDTO, UserDocument } from "../models";
-import { FilterQuery } from "mongoose";
+import { ICreateUserDTO } from "../models";
 
 const getAllUser = async (req:ExtendedRequest, res: Response,next : NextFunction) => {
   const filter = req.body
@@ -52,6 +51,8 @@ const UpdateUser =async (req: ExtendedRequest,res : Response) => {
   } catch (error) {
     return res.status(400).json(error);
   }}
+
+
 const removeUser =async (req:ExtendedRequest,res: Response) => {
   const id = req.params.id;
   try {
@@ -67,6 +68,6 @@ const removeUser =async (req:ExtendedRequest,res: Response) => {
     getAllUser ,
     UpdateUser,
     removeUser,
-    getUserById
+    getUserById,
   }
   export default userController;

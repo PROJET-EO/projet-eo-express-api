@@ -23,3 +23,9 @@ export const verifyToken = (
     res.status(400).json({ error: "Token is not valid" });
   }
 };
+
+
+export const getUserFromToken = async (token: string) => {
+  const user = await jwt.verify(token, process.env.TOKEN_SECRET);
+  return user.id;
+}
