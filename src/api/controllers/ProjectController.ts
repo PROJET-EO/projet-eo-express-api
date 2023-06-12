@@ -8,9 +8,7 @@ import userService from "../services/UserService";
 import ErrorResponse from "../utils/errorResponse";
 import { projectValidation } from "../validations/ProjectValidation";
 import { userMapper } from "./mapper/UserMapper";
-
 import { projectToDomain } from "./mapper/ProjectMapper";
-
 
 const getAllProject = async (
   req: ExtendedRequest,
@@ -30,7 +28,6 @@ const getAllProject = async (
   } catch (error) {
     return res.status(400).json(error);
   }
-  next();
 };
 
 const getProjectById = async (
@@ -52,7 +49,6 @@ const UpdateProject = async (req: ExtendedRequest, res: Response) => {
   const id = req.params.id;
 
   try {
-
     const ProjectTry = await ProjectService.getProjectById(id);
     if (ProjectTry) {
       const newProjectData: ICreateProjectDTO = {
@@ -103,29 +99,7 @@ const createProject = async (req: ExtendedRequest, res: Response) => {
       value,
     });
   } catch (error) {
-    
-  }
-}
-
-const createProject =async (req:ExtendedRequest,res: Response) => {
-  const {name,url,description,tag,owner} = req.body;
-  projectValidation(req.body)
-  try {
-    const ownerUser = userService.getUserByName(owner);
-    const user =await userMapper(ownerUser)
-    const newProjectData : ICreateProjectDTO = {
-        name : name,
-        url : url,
-        owner: user,
-        description: description,
-        tag : tag
-    }
-      await ProjectService.createNewProject(newProjectData)
-      return res.status(202).json({ data : {
-        newProjectData
-      }})
-  } catch (error) {
-    throw new ErrorResponse("error occuered on creating project",500)
+    throw new ErrorResponse("error occuered on creating project", 500);
   }
 };
 const ProjectController = {
