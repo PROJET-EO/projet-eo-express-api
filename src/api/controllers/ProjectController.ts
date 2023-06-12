@@ -82,8 +82,9 @@ const removeProject = async (req: ExtendedRequest, res: Response) => {
 
 const createProject = async (req: ExtendedRequest, res: Response) => {
   const { name, url, description, tag, owner } = req.body;
-  projectValidation(req.body);
+
   try {
+    projectValidation(req.body);
     const ownerUser = userService.getUserByName(owner);
     const user = await userMapper(ownerUser);
     const newProjectData: ICreateProjectDTO = {
@@ -94,12 +95,12 @@ const createProject = async (req: ExtendedRequest, res: Response) => {
       tag: tag,
     };
     const data = await ProjectService.createNewProject(newProjectData);
-    const value = ProjectService.getProjectById(data._id);
+    const value = await ProjectService.getProjectById(data._id);
     return res.status(201).json({
       value,
     });
-  } catch (error) {
-    throw new ErrorResponse("error occuered on creating project", 500);
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
   }
 };
 const ProjectController = {
