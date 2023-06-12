@@ -4,6 +4,7 @@ const ApiError = require("../utils/ApiError");
 const httpStatus = require("http-status");
 import { ICreateUserDTO } from "../models/dtos/user/ICreateUserDTO";
 import { ICreateLoginDTO } from "../models/dtos/user/ICreateLoginDTO";
+import { UserDocument } from "../models";
 
 const register = async (userBody: ICreateUserDTO) => {
   const { error } = authValidation.registerValidation(userBody);
@@ -46,9 +47,15 @@ const login = async (userBody: ICreateLoginDTO) => {
   return fetchedUser;
 };
 
+const whoami = async (user: any) => {
+  const userLogged = await userService.getUserByName(user);
+  return userLogged;
+};
+
 const authService = {
   register,
   login,
+  whoami,
 };
 
 export default authService;
