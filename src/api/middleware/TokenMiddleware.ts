@@ -22,7 +22,7 @@ export const verifyToken = async (
     next();
   } catch (error: any) {
     if (error.name === 'JsonWebTokenError') {
-      return res.status(400).json({ error: "Token is not valid" });
+      return res.status(401).json({ error: "Token is not valid" });
     }
     return res.status(error.status).json({ error: error.message });
   }
