@@ -4,7 +4,7 @@ const router = express.Router();
 
 // route: /api/user/register/
 router.post("/register", authController.register);
-
+router.post("/whoami", authController.whoami);
 // route: /api/user/login/
 router.post("/login", authController.login);
 

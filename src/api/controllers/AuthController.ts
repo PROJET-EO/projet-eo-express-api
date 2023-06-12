@@ -34,11 +34,24 @@ const login = async (req: ExtendedRequest, res: Response) => {
     return res.status(400).json(error);
   }
 };
+const whoami = async (req: ExtendedRequest, res: Response) => {
+  const { name } = req.body;
+  try {
+    const loggedInUser = await authService.whoami(name);
 
+    return res.status(200).json({
+      error: null,
+      user: { loggedInUser },
+    });
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+};
 
 const authController = {
   register,
   login,
+  whoami,
 };
 
 export default authController;
