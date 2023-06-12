@@ -57,10 +57,8 @@ const UpdateComment = async (req: ExtendedRequest, res: Response) => {
         reactor: reactor ?? CommentTry.reactor,
         respond: respond ?? CommentTry.respond,
       };
-      const ToUpdateComment = await CommentService.UpdateComment(
-        newCommentData
-      );
-      return res.json({ error: null, data: ToUpdateComment });
+      const data = await CommentService.UpdateComment(newCommentData);
+      return res.json({ error: null, data });
     }
     throw new Error("404 Comment not found ");
   } catch (error) {

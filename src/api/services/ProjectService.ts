@@ -50,21 +50,7 @@ const getAllProjectQueried = async (req: any) => {
   }
 };
 const getAllProject = async () => {
-  const ProjectAll = await Project.find()
-    .exec()
-    .then((users) => {
-      const response = {
-        count: users.length,
-        users: users.map((user) => {
-          return {
-            _id: user._id,
-            name: user.name,
-            url: user.url,
-          };
-        }),
-      };
-      return response;
-    });
+  const ProjectAll = await Project.find();
 
   return ProjectAll;
 };

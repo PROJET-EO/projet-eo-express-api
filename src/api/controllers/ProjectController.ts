@@ -28,7 +28,6 @@ const getAllProject = async (
   } catch (error) {
     return res.status(400).json(error);
   }
-  next();
 };
 
 const getProjectById = async (
@@ -38,8 +37,8 @@ const getProjectById = async (
 ) => {
   const id = req.params.id;
   try {
-    const ProjectFound = await ProjectService.getProjectById(id);
-    return res.json({ ProjectFound });
+    const data = await ProjectService.getProjectById(id);
+    return res.json({ data });
   } catch (error) {
     return res.status(400).json(error);
   }
@@ -95,8 +94,9 @@ const createProject = async (req: ExtendedRequest, res: Response) => {
       tag: tag,
     };
     const data = await ProjectService.createNewProject(newProjectData);
+    const value = ProjectService.getProjectById(data._id);
     return res.status(201).json({
-      data,
+      value,
     });
   } catch (error) {
     throw new ErrorResponse("error occuered on creating project", 500);
