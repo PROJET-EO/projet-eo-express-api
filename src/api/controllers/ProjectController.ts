@@ -8,9 +8,7 @@ import userService from "../services/UserService";
 import ErrorResponse from "../utils/errorResponse";
 import { projectValidation } from "../validations/ProjectValidation";
 import { userMapper } from "./mapper/UserMapper";
-
 import { projectToDomain } from "./mapper/ProjectMapper";
-
 
 const getAllProject = async (
   req: ExtendedRequest,
@@ -39,8 +37,8 @@ const getProjectById = async (
 ) => {
   const id = req.params.id;
   try {
-    const ProjectFound = await ProjectService.getProjectById(id);
-    return res.json({ ProjectFound });
+    const data = await ProjectService.getProjectById(id);
+    return res.json({ data });
   } catch (error) {
     return res.status(400).json(error);
   }
@@ -51,7 +49,6 @@ const UpdateProject = async (req: ExtendedRequest, res: Response) => {
   const id = req.params.id;
 
   try {
-
     const ProjectTry = await ProjectService.getProjectById(id);
     if (ProjectTry) {
       const newProjectData: ICreateProjectDTO = {
@@ -97,33 +94,12 @@ const createProject = async (req: ExtendedRequest, res: Response) => {
       tag: tag,
     };
     const data = await ProjectService.createNewProject(newProjectData);
+    const value = ProjectService.getProjectById(data._id);
     return res.status(201).json({
-      data,
+      value,
     });
   } catch (error) {
-    
-  }
-}
-
-const createProject =async (req:ExtendedRequest,res: Response) => {
-  const {name,url,description,tag,owner} = req.body;
-  projectValidation(req.body)
-  try {
-    const ownerUser = userService.getUserByName(owner);
-    const user =await userMapper(ownerUser)
-    const newProjectData : ICreateProjectDTO = {
-        name : name,
-        url : url,
-        owner: user,
-        description: description,
-        tag : tag
-    }
-      await ProjectService.createNewProject(newProjectData)
-      return res.status(202).json({ data : {
-        newProjectData
-      }})
-  } catch (error) {
-    throw new ErrorResponse("error occuered on creating project",500)
+    throw new ErrorResponse("error occuered on creating project", 500);
   }
 };
 const ProjectController = {
