@@ -45,7 +45,7 @@ const getAllCommentQueried = async (req: any = {}) => {
   return CommentAll;
 };
 const getAllComment = async () => {
-  const CommentAll = await comment.find();
+  const CommentAll = await comment.find({});
   return CommentAll;
 };
 const removeComment = async (id: string) => {

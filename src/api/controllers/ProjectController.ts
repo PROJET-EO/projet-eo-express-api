@@ -30,6 +30,7 @@ const getAllProject = async (
   } catch (error) {
     return res.status(400).json(error);
   }
+  next();
 };
 
 const getProjectById = async (
